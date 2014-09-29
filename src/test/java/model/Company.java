@@ -3,7 +3,7 @@ package model;
 public class Company {
 
     private final Long id;
-    private final String name;
+    private String name;
 
     public Company(Long id, String name) {
         this.id = id;
@@ -16,6 +16,10 @@ public class Company {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 }
