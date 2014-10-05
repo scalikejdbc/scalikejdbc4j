@@ -2,7 +2,7 @@ organization := "org.scalikejdbc"
 
 name := "scalikejdbc4j"
 
-version := "0.1.0"
+version := "0.1.0-SNAPSHOT"
 
 scalaVersion := "2.11.2"
 
@@ -24,4 +24,10 @@ parallelExecution in Test := false
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature")
 
 scalariformSettings
+
+publishTo <<= version { (v: String) => 
+  val nexus = "https://oss.sonatype.org/"
+  if (v.trim.endsWith("SNAPSHOT")) Some("snapshots" at nexus + "content/repositories/snapshots")
+  else Some("releases" at nexus + "service/local/staging/deploy/maven2")
+}
 
