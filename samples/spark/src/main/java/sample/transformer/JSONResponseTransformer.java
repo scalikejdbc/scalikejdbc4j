@@ -2,12 +2,21 @@ package sample.transformer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 import org.zapodot.jackson.java8.JavaOptionalModule;
 import spark.ResponseTransformer;
 
-public class JSONResponse implements ResponseTransformer {
+public class JSONResponseTransformer implements ResponseTransformer {
 
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper().registerModule(new JavaOptionalModule());
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper().registerModules(
+            new JavaOptionalModule(),
+            new JSR310Module()
+    );
+
+    static {
+        OBJECT_MAPPER.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+    }
 
     @Override
     public String render(Object model) {

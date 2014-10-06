@@ -26,8 +26,7 @@ case class CompanyDao(implicit session: DBSession) {
   def create(name: Optional[String]): Company = {
     val id = withSQL {
       insert.into(Table).namedValues(
-        column.name -> name.asScala
-      )
+        column.name -> name.asScala)
     }.updateAndReturnGeneratedKey.apply()
     find(id).get()
   }
@@ -47,8 +46,7 @@ case class CompanyDao(implicit session: DBSession) {
   def save(company: Company): Unit = {
     withSQL {
       update(Table).set(
-        column.name -> company.getName.asScala
-      ).where.eq(column.id, company.getId)
+        column.name -> company.getName.asScala).where.eq(column.id, company.getId)
     }.update.apply()
   }
 
