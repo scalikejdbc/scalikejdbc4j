@@ -32,7 +32,8 @@ You can build application basically in Java except DAO code in Scala.
 
 #### Company.java
 
-```ge sample.entity;
+```java
+package sample.entity;
 
 import java.util.Optional;
 
