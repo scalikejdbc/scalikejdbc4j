@@ -2,7 +2,7 @@ organization := "org.scalikejdbc"
 
 name := "scalikejdbc4j"
 
-version := "0.1.0-SNAPSHOT"
+version := "0.1.0"
 
 scalaVersion := "2.11.2"
 
@@ -34,3 +34,27 @@ publishTo <<= version { (v: String) =>
   else Some("releases" at nexus + "service/local/staging/deploy/maven2")
 }
 
+publishMavenStyle := true
+
+pomIncludeRepository := { x => false }
+
+pomExtra := <url>http://scalikejdbc.org/</url>
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm>
+    <url>git@github.com:scalikejdbc/scalikejdbc4j.git</url>
+    <connection>scm:git:git@github.com:scalikejdbc/scalikejdbc4j.git</connection>
+  </scm>
+  <developers>
+    <developer>
+      <id>seratch</id>
+      <name>Kazuhiro Sera</name>
+      <url>http://git.io/sera</url>
+    </developer>
+  </developers>
+  
