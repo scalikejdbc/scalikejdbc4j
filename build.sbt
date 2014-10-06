@@ -12,6 +12,7 @@ lazy val scalikejdbcVersion = "2.1.2"
 
 libraryDependencies := Seq(
   "org.scalikejdbc" %% "scalikejdbc"                      % scalikejdbcVersion,
+  "org.scalikejdbc" %% "scalikejdbc-jsr310"               % scalikejdbcVersion,
   "org.scalikejdbc" %% "scalikejdbc-syntax-support-macro" % scalikejdbcVersion,
   "com.h2database"  %  "h2"                               % "1.4.181"           % "test",
   "ch.qos.logback"  %  "logback-classic"                  % "1.1.2"             % "test",
@@ -22,6 +23,8 @@ libraryDependencies := Seq(
 parallelExecution in Test := false
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature")
+
+javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 
 scalariformSettings
 
