@@ -82,7 +82,7 @@ case class CompanyDao(implicit session: DBSession) {
       .updateAndReturnGeneratedKey.apply()
   }
 
-  def find(id: Long): Optional[Company] = {
+  def find(id: JavaLong): Optional[Company] = {
     withSQL { select.from(Table as c).where.eq(c.id, id) }.map(extract(c)).single.apply().asJava
   }
 
