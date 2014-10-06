@@ -5,6 +5,7 @@ import model.Programmer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import scalikejdbc4j.AutoSession;
 import scalikejdbc4j.ConnectionPool;
 import scalikejdbc4j.DB;
 import scalikejdbc4j.NamedDB;
@@ -46,6 +47,34 @@ public class SimpleUsageTest {
     public void tryNamedDB() throws Exception {
         ConnectionPool.add("other", "jdbc:h2:mem:scalikejdbc", "user", "secret");
         List<Programmer> programmers = NamedDB.of("other").withReadOnlySession((s) -> new ProgrammerDao(s).findAll());
+        assertThat(programmers.size(), is(2));
+    }
+
+    @Test
+    public void tryAutoSession() throws Exception {
+        new ProgrammerDao(AutoSession.autoCommit()).create("Oracle", Optional.empty());
+        List<Programmer> programmers = new ProgrammerDao(AutoSession.autoCommit()).findAll();
+        assertThat(programmers.size(), is(3));
+    }
+
+    @Test
+    public void tryNamedAutoSession() throws Exception {
+        ConnectionPool.add("other", "jdbc:h2:mem:scalikejdbc", "user", "secret");
+        new ProgrammerDao(AutoSession.autoCommit("other")).create("Oracle", Optional.empty());
+        List<Programmer> programmers = new ProgrammerDao(AutoSession.autoCommit("other")).findAll();
+        assertThat(programmers.size(), is(3));
+    }
+
+    @Test
+    public void tryReadOnlyAutoSession() throws Exception {
+        List<Programmer> programmers = new ProgrammerDao(AutoSession.readOnly()).findAll();
+        assertThat(programmers.size(), is(2));
+    }
+
+    @Test
+    public void tryReadOnlyNamedAutoSession() throws Exception {
+        ConnectionPool.add("other", "jdbc:h2:mem:scalikejdbc", "user", "secret");
+        List<Programmer> programmers = new ProgrammerDao(AutoSession.readOnly("other")).findAll();
         assertThat(programmers.size(), is(2));
     }
 
