@@ -31,7 +31,7 @@ case class CompanyDao(implicit session: DBSession) {
     find(id).get()
   }
 
-  def find(id: Long): Optional[Company] = {
+  def find(id: JavaLong): Optional[Company] = {
     withSQL {
       select.from(Table as c).where.eq(c.id, id)
     }.map(extract(c)).single.apply().asJava
@@ -50,7 +50,7 @@ case class CompanyDao(implicit session: DBSession) {
     }.update.apply()
   }
 
-  def delete(id: Long): Unit = {
+  def delete(id: JavaLong): Unit = {
     withSQL {
       QueryDSL.delete.from(Table).where.eq(column.id, id)
     }.update.apply()

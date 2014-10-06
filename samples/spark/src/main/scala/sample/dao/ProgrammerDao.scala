@@ -44,7 +44,7 @@ case class ProgrammerDao(implicit session: DBSession) {
        company_id bigint references company(id),
        created_at timestamp not null default current_timestamp)""".execute.apply()
 
-  def create(gitHubName: String, realName: JavaOptional[String], companyId: JavaOptional[java.lang.Long]) = {
+  def create(gitHubName: String, realName: JavaOptional[String], companyId: JavaOptional[JavaLong]) = {
     val id = withSQL {
       insert.into(Table).namedValues(
         column.gitHubName -> gitHubName,
@@ -61,7 +61,7 @@ case class ProgrammerDao(implicit session: DBSession) {
     }.map(extract(p, c)).list.apply().asJava
   }
 
-  def find(id: Long): JavaOptional[Programmer] = {
+  def find(id: JavaLong): JavaOptional[Programmer] = {
     withSQL {
       select.from(Table as p)
         .innerJoin(CompanyTable as c).on(p.companyId, c.id)
@@ -78,7 +78,7 @@ case class ProgrammerDao(implicit session: DBSession) {
     }.update.apply()
   }
 
-  def delete(id: Long): Unit = {
+  def delete(id: JavaLong): Unit = {
     withSQL {
       QueryDSL.delete.from(Table).where.eq(column.id, id)
     }.update.apply()
