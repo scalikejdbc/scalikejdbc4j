@@ -1,8 +1,13 @@
 package sample;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import sample.dao.CompanyDao;
 import sample.dao.ProgrammerDao;
 import sample.transformer.JSONResponseTransformer;
+import scalikejdbc.DBSession;
+import scalikejdbc.DataSourceConnectionPool;
+import scalikejdbc4j.AutoSession;
 import scalikejdbc4j.ConnectionPool;
 import scalikejdbc4j.DB;
 import scalikejdbc4j.GlobalSettings;
@@ -11,6 +16,7 @@ import scalikejdbc4j.globalsettings.LoggingSQLAndTimeSettings;
 import spark.Request;
 import spark.ResponseTransformer;
 
+import javax.sql.DataSource;
 import java.util.Optional;
 import java.util.Set;
 
@@ -20,65 +26,73 @@ public class App {
 
     private static final ResponseTransformer asJSON = new JSONResponseTransformer();
 
+    // --------------
+    // Invoke HTTP server (localhost:4567)
+    // --------------
     public static void main(String[] args) throws Exception {
         initQueryLogLevel();
         initDatabase();
 
+        final DBSession autoCommit = AutoSession.autoCommit();
+        final DBSession readOnly = AutoSession.readOnly();
+
         // --------------
         // before/after
-
+        // --------------
         after((req, res) -> {
             res.type("application/json; charset=utf-8");
         });
 
         // --------------
         // root
-
+        // --------------
         get("/", (req, res) -> {
-            res.redirect("/companies");
+            res.redirect("/programmers");
             return null;
         });
 
         // --------------
         // companies
+        // --------------
 
-        get("/companies", (req, res) -> DB.withReadOnlySession((s) -> {
-            return new CompanyDao(s).findAll();
-        }), asJSON);
+        get("/companies", (req, res) -> {
+            return new CompanyDao(readOnly).findAll();
+        }, asJSON);
 
-        get("/companies/:id", (req, res) -> DB.withReadOnlySession((s) -> {
-            return getId(req).flatMap((id) -> new CompanyDao(s).find(id));
-        }), asJSON);
+        get("/companies/:id", (req, res) -> {
+            return getId(req).flatMap((id) -> new CompanyDao(readOnly).find(id));
+        }, asJSON);
 
-        post("/companies", (req, res) -> DB.withLocalTx((s) -> {
-            return new CompanyDao(s).create(toOptional(req.queryParams("name")));
-        }), asJSON);
+        post("/companies", (req, res) -> {
+            return new CompanyDao(autoCommit).create(toOptional(req.queryParams("name")));
+        }, asJSON);
 
-        put("/companies/:id", (req, res) -> DB.withLocalTx((s) -> {
-            CompanyDao dao = new CompanyDao(s);
+        put("/companies/:id", (req, res) -> {
+            CompanyDao dao = new CompanyDao(autoCommit);
             return getId(req).flatMap((id) -> dao.find(id).map((c) -> {
                 c.setName(toOptional(req.queryParams("name")));
                 dao.save(c);
                 return c;
             }));
-        }), asJSON);
+        }, asJSON);
 
-        delete("/companies/:id", (req, res) -> DB.withLocalTx((s) -> {
+        delete("/companies/:id", (req, res) -> {
             Optional<Long> id = getId(req);
-            if (id.isPresent()) new CompanyDao(s).delete(id.get());
+            if (id.isPresent()) new CompanyDao(autoCommit).delete(id.get());
             return null;
-        }), asJSON);
+        }, asJSON);
 
         // --------------
         // programmers
+        // --------------
 
-        get("/programmers", (req, res) -> DB.withReadOnlySession((s) -> {
-            return new ProgrammerDao(s).findAll();
-        }), asJSON);
+        get("/programmers", (req, res) -> {
+            return new ProgrammerDao(autoCommit).findAll();
+        }, asJSON);
 
-        get("/programmers/:id", (req, res) -> DB.withReadOnlySession((s) -> {
-            return getId(req).flatMap((id) -> new ProgrammerDao(s).find(id));
-        }), asJSON);
+        get("/programmers/:id", (req, res) -> {
+            return getId(req).flatMap((id) -> new ProgrammerDao(readOnly).find(id));
+        }, asJSON);
 
         post("/programmers", (req, res) -> DB.withLocalTx((s) -> {
             return new ProgrammerDao(s).create(
@@ -107,6 +121,10 @@ public class App {
         }), asJSON);
     }
 
+    // --------------
+    // Private methods
+    // --------------
+
     private static void initQueryLogLevel() {
         LoggingSQLAndTimeSettings loggingSettings = new LoggingSQLAndTimeSettings();
         loggingSettings.setLogLevel(LogLevel.INFO);
@@ -114,13 +132,22 @@ public class App {
     }
 
     private static void initDatabase() throws ClassNotFoundException {
-        Class.forName("org.h2.Driver");
-        ConnectionPool.singleton("jdbc:h2:mem:sample", "sa", "sa");
-
+        // initializeConnectionPool();
+        initializeConnectionPoolViaSpring();
         DB.autoCommit((s) -> {
             new CompanyDao(s).createTable();
             new ProgrammerDao(s).createTable();
         });
+    }
+
+    private static void initializeConnectionPool() throws ClassNotFoundException {
+        Class.forName("org.h2.Driver");
+        ConnectionPool.singleton("jdbc:h2:mem:sample", "sa", "sa");
+    }
+
+    private static void initializeConnectionPoolViaSpring() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        ConnectionPool.singleton(new DataSourceConnectionPool((DataSource) context.getBean("dataSource")));
     }
 
     private static <T> Optional<T> toOptional(T value) {
