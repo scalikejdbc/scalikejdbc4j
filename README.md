@@ -1,6 +1,10 @@
 ## ScalikeJDBC4J - ScalikeJDBC in Java apps
 
-ScalikeJDBC is a tidy SQL-based DB access library for Scala developers. This library naturally wraps JDBC APIs and provides you easy-to-use and very flexible APIs. What’s more, QueryDSL makes your code type-safe and reusable. ScalikeJDBC is a practical and production-ready one. Use this library for your real projects.
+ScalikeJDBC is a tidy SQL-based DB access library for Scala developers. 
+
+This library naturally wraps JDBC APIs and provides you easy-to-use and very flexible APIs. What’s more, QueryDSL makes your code type-safe and reusable. 
+
+ScalikeJDBC is a practical and production-ready one. Use this library for your real projects.
 
 http://scalikejdbc.org/
 
@@ -99,6 +103,9 @@ import java.util.*;
 import scalikejdbc4j.*;
 import javax.sql.DataSource;
 
+import sample.entity.Company;
+import sample.dao.CompanyDao;
+
 // Load DataSource in some way (e.g. Spring, JNDI)
 DataSource dataSource = context.getBean(DataSource.class);
 ConnectionPool.singleton(dataSource);
@@ -115,7 +122,7 @@ DB.localTx((session) -> {
 });
 ```
 
-### Spark Framework Sample
+### Samples
 
 See the following samples for details.
 
