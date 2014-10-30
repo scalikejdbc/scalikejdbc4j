@@ -126,7 +126,9 @@ DB.localTx((session) -> {
 
 See the following samples for details.
 
-- [Spark Framework + Spring Framework](https://github.com/scalikejdbc/scalikejdbc4j/tree/master/samples/spark)
+- [Spark Framework + Spring Framework + ScalikeJDBC4J](https://github.com/scalikejdbc/scalikejdbc4j/tree/master/samples/spark)
+- [Spring Boot + Lombok + ScalikeJDBC4J](https://github.com/emalock3/spring-boot-scalikejdbc4j-sample)
+
 
 ### License
 
