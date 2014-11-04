@@ -26,7 +26,7 @@ If you're interested in using ScalikeJDBC in Java apps, please feel free to send
 <dependency>
   <groupId>org.scalikejdbc</groupId>
   <artifactId>scalikejdbc4j_2.11</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
 </dependency>
 ```
 
