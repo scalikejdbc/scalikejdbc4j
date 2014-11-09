@@ -3,14 +3,14 @@ package sample.transformer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
-import org.zapodot.jackson.java8.JavaOptionalModule;
 import spark.ResponseTransformer;
 
 public class JSONResponseTransformer implements ResponseTransformer {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper().registerModules(
-            new JavaOptionalModule(),
+            new Jdk8Module(),
             new JSR310Module()
     );
 
