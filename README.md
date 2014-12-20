@@ -1,5 +1,8 @@
 ## ScalikeJDBC4J - ScalikeJDBC in Java apps
 
+[![Build Status](https://travis-ci.org/scalikejdbc/scalikejdbc4j.svg)](https://travis-ci.org/scalikejdbc/scalikejdbc4j)
+[![Coverage Status](https://coveralls.io/repos/scalikejdbc/scalikejdbc4j/badge.png?branch=master)](https://coveralls.io/r/scalikejdbc/scalikejdbc4j?branch=master)
+
 ScalikeJDBC is a tidy SQL-based DB access library for Scala developers. 
 
 This library naturally wraps JDBC APIs and provides you easy-to-use and very flexible APIs. What’s more, QueryDSL makes your code type-safe and reusable. 
