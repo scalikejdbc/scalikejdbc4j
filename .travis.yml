@@ -2,8 +2,9 @@ language: scala
 scala:
 - 2.10.4
 - 2.11.4
-script: sbt clean coverage test
-after_success: sbt coveralls
-env:
-  global:
-    secure: GwrgMtH22oz+FUiBADMPSlVh0xxOLjewmb2dMhFm8wWK/SyYhN+daWDLoE4zDkQ27ESR+eL1CN7txOm7i62Al6SnGM7jD1fua9YyurLkfuzOHmLx5xa3VckaPvBZiTVaXuDzIAGVqCVpYkhGEW3VaHCN4VQbXtB91rMQGqQxUi0=
+# TODO: java.lang.Exception: Fatal: scalac-scoverage-plugin not in libraryDependencies
+#script: sbt clean coverage test
+#after_success: sbt coveralls
+#env:
+#  global:
+#    secure: GwrgMtH22oz+FUiBADMPSlVh0xxOLjewmb2dMhFm8wWK/SyYhN+daWDLoE4zDkQ27ESR+eL1CN7txOm7i62Al6SnGM7jD1fua9YyurLkfuzOHmLx5xa3VckaPvBZiTVaXuDzIAGVqCVpYkhGEW3VaHCN4VQbXtB91rMQGqQxUi0=
