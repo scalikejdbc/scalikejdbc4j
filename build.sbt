@@ -1,18 +1,18 @@
-lazy val scalikejdbcVersion = "2.2.0"
+lazy val scalikejdbcVersion = "2.2.1"
 
 lazy val root = (project in file(".")).settings(
   organization := "org.scalikejdbc",
   name := "scalikejdbc4j",
-  version := "0.1.2",
+  version := "0.1.3",
   scalaVersion := "2.11.4",
   crossScalaVersions := Seq("2.10.4", "2.11.4"),
   libraryDependencies := Seq(
     "org.scalikejdbc" %% "scalikejdbc"                      % scalikejdbcVersion,
     "org.scalikejdbc" %% "scalikejdbc-jsr310"               % scalikejdbcVersion,
     "org.scalikejdbc" %% "scalikejdbc-syntax-support-macro" % scalikejdbcVersion,
-    "com.h2database"  %  "h2"                               % "1.4.182"           % "test",
+    "com.h2database"  %  "h2"                               % "1.4.184"           % "test",
     "ch.qos.logback"  %  "logback-classic"                  % "1.1.2"             % "test",
-    "junit"           %  "junit"                            % "4.11"              % "test",
+    "junit"           %  "junit"                            % "4.12"              % "test",
     "com.novocode"    %  "junit-interface"                  % "0.11"              % "test"
   ),
   parallelExecution in Test := false,
