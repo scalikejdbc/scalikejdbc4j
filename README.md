@@ -29,7 +29,7 @@ If you're interested in using ScalikeJDBC in Java apps, please feel free to send
 <dependency>
   <groupId>org.scalikejdbc</groupId>
   <artifactId>scalikejdbc4j_2.11</artifactId>
-  <version>0.1.2</version>
+  <version>0.1.3</version>
 </dependency>
 ```
 
@@ -135,7 +135,7 @@ See the following samples for details.
 
 ### License
 
-Copyright 2014 scalikejdbc.org
+Copyright 2014 - 2015 scalikejdbc.org
 
 Licensed under the Apache License, Version 2.0 (the "License")
 
