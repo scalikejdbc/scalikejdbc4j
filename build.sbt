@@ -1,4 +1,4 @@
-lazy val scalikejdbcVersion = "2.2.1"
+lazy val scalikejdbcVersion = "2.2.+"
 
 lazy val root = (project in file(".")).settings(
   organization := "org.scalikejdbc",
@@ -10,7 +10,7 @@ lazy val root = (project in file(".")).settings(
     "org.scalikejdbc" %% "scalikejdbc"                      % scalikejdbcVersion,
     "org.scalikejdbc" %% "scalikejdbc-jsr310"               % scalikejdbcVersion,
     "org.scalikejdbc" %% "scalikejdbc-syntax-support-macro" % scalikejdbcVersion,
-    "com.h2database"  %  "h2"                               % "1.4.184"           % "test",
+    "com.h2database"  %  "h2"                               % "1.4.185"           % "test",
     "ch.qos.logback"  %  "logback-classic"                  % "1.1.2"             % "test",
     "junit"           %  "junit"                            % "4.12"              % "test",
     "com.novocode"    %  "junit-interface"                  % "0.11"              % "test"
