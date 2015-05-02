@@ -6,7 +6,7 @@ import sample.dao.CompanyDao;
 import sample.dao.ProgrammerDao;
 import sample.transformer.JSONResponseTransformer;
 import scalikejdbc.DBSession;
-import scalikejdbc.DataSourceConnectionPool;
+import scalikejdbc4j.DataSourceConnectionPool;
 import scalikejdbc4j.AutoSession;
 import scalikejdbc4j.ConnectionPool;
 import scalikejdbc4j.DB;
