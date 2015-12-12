@@ -1,16 +1,16 @@
-lazy val scalikejdbcVersion = "2.2.6"
+lazy val scalikejdbcVersion = "2.3.2"
 
 lazy val root = (project in file(".")).settings(
   organization := "org.scalikejdbc",
   name := "scalikejdbc4j",
-  version := "0.1.6",
-  scalaVersion := "2.11.6",
-  crossScalaVersions := Seq("2.10.5", "2.11.6"),
+  version := "0.2.0",
+  scalaVersion := "2.11.7",
+  crossScalaVersions := Seq("2.10.6", "2.11.7"),
   libraryDependencies := Seq(
     "org.scalikejdbc" %% "scalikejdbc"                      % scalikejdbcVersion,
     "org.scalikejdbc" %% "scalikejdbc-jsr310"               % scalikejdbcVersion,
     "org.scalikejdbc" %% "scalikejdbc-syntax-support-macro" % scalikejdbcVersion,
-    "com.h2database"  %  "h2"                               % "1.4.187"           % "test",
+    "com.h2database"  %  "h2"                               % "1.4.190"           % "test",
     "ch.qos.logback"  %  "logback-classic"                  % "1.1.3"             % "test",
     "junit"           %  "junit"                            % "4.12"              % "test",
     "com.novocode"    %  "junit-interface"                  % "0.11"              % "test"
@@ -44,6 +44,4 @@ lazy val root = (project in file(".")).settings(
         <url>http://git.io/sera</url>
       </developer>
     </developers>
-).settings(scalariformSettings: _*)
- .settings(sonatypeSettings: _*)
-
+).settings(scalariformSettings)

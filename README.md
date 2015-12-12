@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/scalikejdbc/scalikejdbc4j.svg)](https://travis-ci.org/scalikejdbc/scalikejdbc4j)
 <!--[![Coverage Status](https://coveralls.io/repos/scalikejdbc/scalikejdbc4j/badge.png?branch=master)](https://coveralls.io/r/scalikejdbc/scalikejdbc4j?branch=master)-->
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.scalikejdbc/scalikejdbc4j_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.scalikejdbc/scalikejdbc4j_2.11)
 
 ScalikeJDBC is a tidy SQL-based DB access library for Scala developers. 
 
